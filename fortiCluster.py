@@ -2,6 +2,8 @@ import re
 import datetime
 import requests
 
+# This only works on Fortinet Logs.
+
 # Define a regular expression pattern to match the timestamp
 pattern = r'[A-Za-z]{3} \d{2} \d{2}:\d{2}:\d{2}'
 
