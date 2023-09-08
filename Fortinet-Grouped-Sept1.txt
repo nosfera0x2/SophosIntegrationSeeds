@@ -10,36 +10,3 @@
 <9>Sep 01 14:58:08 HOST1234-FG111 CEF:0|Fortinet|Fortigate|v7.2.5|98765|utm:ips signature|7|deviceExternalId=FG11111112222333 FTNTFGTeventtime=1693580288567417227 FTNTFGTtz=+0000 FTNTFGTlogid=12345678987 cat=utm:ips FTNTFGTsubtype=ips FTNTFGTeventtype=signature FTNTFGTlevel=alert FTNTFGTvd=root FTNTFGTseverity=medium src=210.52.109.109 FTNTFGTsrccountry=North Korea dst=172.16.11.66 FTNTFGTdstcountry=Reserved deviceInboundInterface=port1 FTNTFGTsrcintfrole=wan deviceOutboundInterface=VLAN_0034 FTNTFGTdstintfrole=dmz externalId=12345678 act=logged proto=6 app=HTTPS FTNTFGTpolicyid=676 FTNTFGTpoluuid=00000000-0000-0000-0000-000000000000 FTNTFGTpolicytype=policy FTNTFGTattack=HTTP.URI.XSS spt=56196 dpt=443 dhost=webapi.customer.com request=/?%5C%22%3E%3Cscript%3Ealert('Vulnerable');%3C/script%3E deviceDirection=1 FTNTFGTattackid=30352 FTNTFGTprofile=IPS - STD FTNTFGTref=http://www.fortinet.com/ids/VID30352 FTNTFGTincidentserialno=12345678765432 msg=web_misc: HTTP.URI.XSS FTNTFGTcrscore=10 FTNTFGTcraction=16384 FTNTFGTcrlevel=medium
 <9>Sep 01 14:59:08 HOST1234-FG111 CEF:0|Fortinet|Fortigate|v7.2.5|98765|utm:ips signature|7|deviceExternalId=FG11111112222333 FTNTFGTeventtime=1693580348567417227 FTNTFGTtz=+0000 FTNTFGTlogid=12345678987 cat=utm:ips FTNTFGTsubtype=ips FTNTFGTeventtype=signature FTNTFGTlevel=alert FTNTFGTvd=root FTNTFGTseverity=medium src=210.52.109.109 FTNTFGTsrccountry=North Korea dst=172.16.11.66 FTNTFGTdstcountry=Reserved deviceInboundInterface=port1 FTNTFGTsrcintfrole=wan deviceOutboundInterface=VLAN_0034 FTNTFGTdstintfrole=dmz externalId=12345678 act=logged proto=6 app=HTTPS FTNTFGTpolicyid=676 FTNTFGTpoluuid=00000000-0000-0000-0000-000000000000 FTNTFGTpolicytype=policy FTNTFGTattack=HTTP.URI.XSS spt=56196 dpt=443 dhost=webapi.customer.com request=/?%5C%22%3E%3Cscript%3Ealert('Vulnerable');%3C/script%3E deviceDirection=1 FTNTFGTattackid=30352 FTNTFGTprofile=IPS - STD FTNTFGTref=http://www.fortinet.com/ids/VID30352 FTNTFGTincidentserialno=12345678765432 msg=web_misc: HTTP.URI.XSS FTNTFGTcrscore=10 FTNTFGTcraction=16384 FTNTFGTcrlevel=medium
 <9>Sep 01 15:00:08 HOST1234-FG111 CEF:0|Fortinet|Fortigate|v7.2.5|98765|utm:ips signature|7|deviceExternalId=FG11111112222333 FTNTFGTeventtime=1693580408567417227 FTNTFGTtz=+0000 FTNTFGTlogid=12345678987 cat=utm:ips FTNTFGTsubtype=ips FTNTFGTeventtype=signature FTNTFGTlevel=alert FTNTFGTvd=root FTNTFGTseverity=medium src=210.52.109.109 FTNTFGTsrccountry=North Korea dst=172.16.11.66 FTNTFGTdstcountry=Reserved deviceInboundInterface=port1 FTNTFGTsrcintfrole=wan deviceOutboundInterface=VLAN_0034 FTNTFGTdstintfrole=dmz externalId=12345678 act=logged proto=6 app=HTTPS FTNTFGTpolicyid=676 FTNTFGTpoluuid=00000000-0000-0000-0000-000000000000 FTNTFGTpolicytype=policy FTNTFGTattack=HTTP.URI.XSS spt=56196 dpt=443 dhost=webapi.customer.com request=/?%5C%22%3E%3Cscript%3Ealert('Vulnerable');%3C/script%3E deviceDirection=1 FTNTFGTattackid=30352 FTNTFGTprofile=IPS - STD FTNTFGTref=http://www.fortinet.com/ids/VID30352 FTNTFGTincidentserialno=12345678765432 msg=web_misc: HTTP.URI.XSS FTNTFGTcrscore=10 FTNTFGTcraction=16384 FTNTFGTcrlevel=medium
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
