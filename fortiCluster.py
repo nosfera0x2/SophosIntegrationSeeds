@@ -2,9 +2,10 @@ import socket
 import time
 import re
 import requests
+import random
 
 # Define the syslog server address and port
-syslog_server_address = ('syslog-ip', syslog-port)
+syslog_server_address = ('syslog-server-ip', portNumber)
 
 # Function to update the timestamp and FTNTFGTeventtime in the syslog line
 def update_syslog_line(syslog_line):
@@ -53,4 +54,5 @@ for syslog_line in syslog_data:
         
     print(f"Sent: {updated_line}")
     
-    #time.sleep(60)
+    random_sleep = random.randint(60,140)
+    time.sleep(random_sleep)
