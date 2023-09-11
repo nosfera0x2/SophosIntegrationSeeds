@@ -5,7 +5,7 @@ import requests
 import random
 
 # Define the syslog server address and port
-syslog_server_address = ('syslog-server-ip', portNumber)
+syslog_server_address = ('syslog_ip_address', port_number)
 
 # Function to update the timestamp and FTNTFGTeventtime in the syslog line
 def update_syslog_line(syslog_line):
