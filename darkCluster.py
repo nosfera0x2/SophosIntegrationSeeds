@@ -5,7 +5,7 @@ import requests
 import random
 
 # Define the syslog server address and port
-syslog_server_address = ('sophos-virtual-appliance-ip', port_number)
+syslog_server_address = ('sophosvirtualappliance_ip', sophosvirtualappliance_port)
 
 # Function to update the timestamp in the syslog line
 def update_syslog_line(syslog_line):
@@ -34,16 +34,18 @@ def fetch_syslog_data(url):
 syslog_data_url = 'https://raw.githubusercontent.com/nosfera0x2/fileZone/main/Darktrace-Grouped-Sept1.txt'
 
 syslog_data = fetch_syslog_data(syslog_data_url)
+
+# Create a TCP socket
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.connect(syslog_server_address)  # Connect to the syslog server
     
-for syslog_line in syslog_data:
-    updated_line = update_syslog_line(syslog_line)
+    for syslog_line in syslog_data:
+        updated_line = update_syslog_line(syslog_line)
         
-    # Send the syslog to the syslog server
-    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-        s.sendto(updated_line.encode(), syslog_server_address)
+        # Send the syslog to the syslog server over TCP
+        s.sendall(updated_line.encode())
         
-    print(f"Sent: {updated_line}")
-    
-    random_sleep = random.randint(60, 160)
-    time.sleep(random_sleep)
-  
+        print(f"Sent: {updated_line}")
+        
+        random_sleep = random.randint(60, 160)
+        time.sleep(random_sleep)
