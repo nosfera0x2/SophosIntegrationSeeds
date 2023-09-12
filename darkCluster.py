@@ -42,10 +42,14 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     for syslog_line in syslog_data:
         updated_line = update_syslog_line(syslog_line)
         
-        # Send the syslog to the syslog server over TCP
-        s.sendall(updated_line.encode())
-        
-        print(f"Sent: {updated_line}")
+        # Split the syslog data into separate lines and send each line separately
+        lines_to_send = updated_line.split('\n')
+        for line in lines_to_send:
+            if line.strip():  # Skip empty lines
+                # Send the syslog to the syslog server over TCP
+                s.sendall(line.encode() + b'\n')  # Add a line break
+                
+                print(f"Sent: {line}")
         
         random_sleep = random.randint(60, 160)
         time.sleep(random_sleep)
