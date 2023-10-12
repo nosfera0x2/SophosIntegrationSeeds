@@ -41,7 +41,7 @@ def fetch_syslog_data(url):
         return []
 
 # URL of the syslog data file on GitHub
-syslog_data_url = 'https://raw.githubusercontent.com/nosfera0x2/fileZone/main/Fortinet-Grouped-Sept1.txt'
+syslog_data_url = 'https://raw.githubusercontent.com/nosfera0x2/SophosIntegrationSeeds/main/Fortinet-Grouped-Sept1.txt'
 
 syslog_data = fetch_syslog_data(syslog_data_url)
     
