@@ -5,7 +5,7 @@ import requests
 import random
 
 # Define the syslog server address and port
-syslog_server_address = ('syslog_ip_address', port_number)
+syslog_server_address = ('syslog_ip_address', port_number_of_fortinet_integration)
 
 # Function to update the timestamp and FTNTFGTeventtime in the syslog line
 def update_syslog_line(syslog_line):
@@ -41,7 +41,7 @@ def fetch_syslog_data(url):
         return []
 
 # URL of the syslog data file on GitHub
-syslog_data_url = 'https://raw.githubusercontent.com/nosfera0x2/SophosIntegrationSeeds/main/Fortinet-Grouped-Sept1.txt'
+syslog_data_url = 'https://raw.githubusercontent.com/nosfera0x2/SophosIntegrationSeeds/main/forti-wsftp.txt'
 
 syslog_data = fetch_syslog_data(syslog_data_url)
     
@@ -54,5 +54,5 @@ for syslog_line in syslog_data:
         
     print(f"Sent: {updated_line}")
     
-    random_sleep = random.randint(60,140)
+    random_sleep = random.randint(10,30)
     time.sleep(random_sleep)
