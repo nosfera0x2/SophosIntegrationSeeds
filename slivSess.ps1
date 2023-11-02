@@ -31,12 +31,7 @@ if ($p.ExitCode -ne 0) {
     $res = $stdout
 }
 
-# Send the output of the executed file back to the server (if needed)
-# You can add this part if you want to send the output back to a server
-
 # Clean up (close and dispose of resources)
 $p.Close()
 $p.Dispose()
 
-# Optionally, remove the downloaded file if you no longer need it
-Remove-Item -Path $targetFile -Force
