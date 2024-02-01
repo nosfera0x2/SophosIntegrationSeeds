@@ -7,8 +7,8 @@ from datetime import datetime, timezone, timedelta
 # Define the syslog server address and port
 syslog_server_address = ('192.168.254.251', 10517)  # Update port if needed
 
-# Function to update the timestamp in the syslog line to the current local time with timezone offset
-def update_timestamp(syslog_line):
+# Function to update the timestamps in the syslog line to the current local time with timezone offset
+def update_timestamps(syslog_line):
     # Find the number inside the angle brackets
     match = re.search(r'(<\d+>)', syslog_line)
     if match:
@@ -25,6 +25,12 @@ def update_timestamp(syslog_line):
 
     # Replace the old timestamp with the current time with offset
     syslog_line = re.sub(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+[-+]\d{2}:\d{2}', f'{current_time_local_str}', syslog_line)
+
+    # Check for the additional time field and update if found
+    time_field_match = re.search(r'(\d{1,2}/\d{1,2}/\d{4} \d{1,2}:\d{2} (AM|PM))', syslog_line)
+    if time_field_match:
+        current_time_str = current_time_local.strftime('%m/%d/%Y %I:%M %p')
+        syslog_line = re.sub(r'\d{1,2}/\d{1,2}/\d{4} \d{1,2}:\d{2} (AM|PM)', current_time_str, syslog_line)
 
     return syslog_line
 
@@ -69,7 +75,7 @@ syslog_data_path = f'{selected_syslog_file}'
 syslog_data = read_syslog_file(syslog_data_path)
 
 for syslog_line in syslog_data:
-    updated_line = update_timestamp(syslog_line)
+    updated_line = update_timestamps(syslog_line)
 
     # Send the syslog to the syslog server
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
