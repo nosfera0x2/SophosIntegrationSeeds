@@ -2,12 +2,12 @@ import socket
 import time
 import re
 import random
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 # Define the syslog server address and port
 syslog_server_address = ('192.168.254.251', 10517)  # Update port if needed
 
-# Function to update the timestamp in the syslog line
+# Function to update the timestamp in the syslog line to the current UTC time with CST offset
 def update_timestamp(syslog_line):
     # Find the number inside the angle brackets
     match = re.search(r'(<\d+>)', syslog_line)
@@ -15,21 +15,30 @@ def update_timestamp(syslog_line):
         prefix = match.group(1)
     else:
         prefix = "<12>"  # Default prefix if not found
-    
-    # Extract the existing timestamp and timezone offset
-    timestamp_match = re.search(r'(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+)-(\d{2}:\d{2})', syslog_line)
-    
-    if timestamp_match:
-        # Extract the timestamp and timezone offset
-        existing_timestamp = timestamp_match.group(1)
-        existing_timezone_offset = timestamp_match.group(2)
-        
-        # Get the current datetime in the same format
-        current_datetime = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
-        
-        # Replace the old timestamp with the current datetime
-        syslog_line = re.sub(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+-\d{2}:\d{2}', f'{current_datetime}-{existing_timezone_offset}', syslog_line)
-    
+
+    # Get the current time in UTC
+    current_time_utc = datetime.utcnow().replace(tzinfo=timezone.utc)
+
+    # Convert UTC to CST
+    cst_offset = timedelta(hours=-6)
+    current_time_cst = current_time_utc.astimezone(timezone(cst_offset))
+
+    # Format the current time to include milliseconds
+    current_time_cst_str = current_time_cst.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
+
+    # Extract the existing timezone offset
+    timezone_offset_match = re.search(r'([-+]\d{2}:\d{2})', syslog_line)
+    if timezone_offset_match:
+        existing_timezone_offset = timezone_offset_match.group(1)
+    else:
+        existing_timezone_offset = "-00:00"  # Default offset if not found
+
+    # Include the timezone offset in the current time
+    current_time_with_offset = current_time_cst_str + existing_timezone_offset
+
+    # Replace the old timestamp with the current time with offset
+    syslog_line = re.sub(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+[-+]\d{2}:\d{2}', f'{current_time_with_offset}', syslog_line)
+
     return syslog_line
 
 # Function to read syslog data from a local file
@@ -71,15 +80,15 @@ selected_syslog_file = select_syslog_file()
 syslog_data_path = f'{selected_syslog_file}'
 
 syslog_data = read_syslog_file(syslog_data_path)
-    
+
 for syslog_line in syslog_data:
     updated_line = update_timestamp(syslog_line)
-        
+
     # Send the syslog to the syslog server
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
         s.sendto(updated_line.encode(), syslog_server_address)
-        
+
     print(f"Sent: {updated_line}")
-    
+
     random_sleep = random.randint(5, 15)
     time.sleep(random_sleep)
