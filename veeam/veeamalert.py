@@ -7,7 +7,7 @@ from datetime import datetime, timezone, timedelta
 # Define the syslog server address and port
 syslog_server_address = ('192.168.254.251', 10517)  # Update port if needed
 
-# Function to update the timestamp in the syslog line to the current UTC time with CST offset
+# Function to update the timestamp in the syslog line to the current local time with timezone offset
 def update_timestamp(syslog_line):
     # Find the number inside the angle brackets
     match = re.search(r'(<\d+>)', syslog_line)
@@ -16,28 +16,15 @@ def update_timestamp(syslog_line):
     else:
         prefix = "<12>"  # Default prefix if not found
 
-    # Get the current time in UTC
-    current_time_utc = datetime.utcnow().replace(tzinfo=timezone.utc)
+    # Get the current local time and timezone
+    current_time_local = datetime.now(timezone.utc).astimezone()
+    local_timezone = current_time_local.strftime('%z')
 
-    # Convert UTC to CST
-    cst_offset = timedelta(hours=-6)
-    current_time_cst = current_time_utc.astimezone(timezone(cst_offset))
-
-    # Format the current time to include milliseconds
-    current_time_cst_str = current_time_cst.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3]
-
-    # Extract the existing timezone offset
-    timezone_offset_match = re.search(r'([-+]\d{2}:\d{2})', syslog_line)
-    if timezone_offset_match:
-        existing_timezone_offset = timezone_offset_match.group(1)
-    else:
-        existing_timezone_offset = "-00:00"  # Default offset if not found
-
-    # Include the timezone offset in the current time
-    current_time_with_offset = current_time_cst_str + existing_timezone_offset
+    # Format the current time to match the original timestamp format with six-digit milliseconds
+    current_time_local_str = current_time_local.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + "{:03d}".format(current_time_local.microsecond // 1000) + local_timezone[:3] + ':' + local_timezone[3:]
 
     # Replace the old timestamp with the current time with offset
-    syslog_line = re.sub(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+[-+]\d{2}:\d{2}', f'{current_time_with_offset}', syslog_line)
+    syslog_line = re.sub(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+[-+]\d{2}:\d{2}', f'{current_time_local_str}', syslog_line)
 
     return syslog_line
 
