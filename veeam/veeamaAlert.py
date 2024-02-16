@@ -7,7 +7,7 @@ import requests
 from datetime import datetime, timezone, timedelta
 
 # Define the syslog server address and port
-syslog_server_address = ('192.168.254.251', 10517)  # Update port if needed
+syslog_server_address = ('10.1.10.54', 10517)  # Update port if needed
 
 # Function to update the timestamps in the syslog line to the current local time with timezone offset
 def update_timestamps(syslog_line):
